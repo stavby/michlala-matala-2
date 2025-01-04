@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Matala 2</string>
+    <string name="main_activity_greeting">Hello, world!</string>
+    <string name="create_new_student_button_text">Create a new student</string>
+    <string name="create_student_title">Enter new student details</string>
 </resources>
