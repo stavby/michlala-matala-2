@@ -8,7 +8,7 @@
     tools:context=".CreateStudentActivity">
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/new_student_email_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,12 +17,22 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/new_student_name_fieldnew_student_email_field"
         app:layout_constraintStart_toEndOf="@+id/new_student_name_fieldnew_student_email_field" />
 
+    <EditText
+        android:id="@+id/new_student_national_id_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/new_student_name_fieldnew_student_national_id_field"
+        app:layout_constraintStart_toEndOf="@+id/new_student_name_fieldnew_student_national_id_field" />
+
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="40dp"
+        android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_student_title" />
@@ -83,11 +93,22 @@
 
     <TextView
         android:id="@+id/new_student_name_fieldnew_student_email_field"
-        android:layout_width="40dp"
+        android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="Email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/new_student_name_fieldnew_student_national_id_field"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="National ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_student_name_fieldnew_student_email_field" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
