@@ -14,8 +14,6 @@ import com.StavAndYaron.matala2.model.Model
 import com.StavAndYaron.matala2.model.Student
 
 class AllStudentsActivity : AppCompatActivity() {
-    private var students: MutableList<Student>? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,20 +22,6 @@ class AllStudentsActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-
-        students = Model.instance.students
-        val linearLayoutManager = LinearLayoutManager(this)
-        findViewById<RecyclerView>(R.id.students_recycler_view).apply {
-            setHasFixedSize(true)
-            layoutManager = linearLayoutManager
-            adapter = StudentsAdapter(students!!).apply {
-                onClickListener = object : OnStudentItemClickListener {
-                    override fun onItemClick(student: Student) {
-                        Log.d("TAG", "Clicked on ${student.name}")
-                    }
-                }
-            }
         }
     }
 }
