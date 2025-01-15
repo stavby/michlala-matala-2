@@ -2,6 +2,7 @@ package com.StavAndYaron.matala2
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,6 +27,15 @@ class AllStudentsActivity : AppCompatActivity() {
             insets
         }
 
+        val button: Button = findViewById<Button>(R.id.all_students_activity_new_student_button)
+
+        button.setOnClickListener {
+            CreateStudentActivity.startActivity(this)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         students = Model.instance.students
         val linearLayoutManager = LinearLayoutManager(this)
         findViewById<RecyclerView>(R.id.students_recycler_view).apply {
