@@ -3,4 +3,5 @@
     <string name="main_activity_greeting">Hello, world!</string>
     <string name="create_new_student_button_text">Create a new student</string>
     <string name="create_student_title">Enter new student details</string>
+    <string name="student_details_title">View student details</string>
 </resources>

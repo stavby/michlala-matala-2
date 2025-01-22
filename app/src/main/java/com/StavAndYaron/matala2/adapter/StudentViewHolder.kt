@@ -1,13 +1,16 @@
 package com.StavAndYaron.matala2.adapter
 
+import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.StavAndYaron.matala2.R
+import com.StavAndYaron.matala2.StudentDetailsActivity
 import com.StavAndYaron.matala2.model.Student
 
-class StudentViewHolder(itemView: View, listener: OnStudentItemClickListener?) :
+class StudentViewHolder(itemView: View, private val onClickListener: (Student) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
     private var name: TextView? = null
     private var email: TextView? = null
@@ -28,7 +31,7 @@ class StudentViewHolder(itemView: View, listener: OnStudentItemClickListener?) :
         }
 
         itemView.setOnClickListener {
-            listener?.onItemClick(student!!)
+            student?.let { onClickListener(it) }
         }
     }
 

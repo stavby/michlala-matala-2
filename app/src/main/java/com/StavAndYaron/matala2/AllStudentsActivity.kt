@@ -1,5 +1,6 @@
 package com.StavAndYaron.matala2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -9,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.StavAndYaron.matala2.adapter.OnStudentItemClickListener
 import com.StavAndYaron.matala2.adapter.StudentsAdapter
 import com.StavAndYaron.matala2.model.Model
 import com.StavAndYaron.matala2.model.Student
@@ -38,14 +38,13 @@ class AllStudentsActivity : AppCompatActivity() {
         super.onResume()
         students = Model.instance.students
         val linearLayoutManager = LinearLayoutManager(this)
+
         findViewById<RecyclerView>(R.id.students_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = StudentsAdapter(students!!).apply {
-                onClickListener = object : OnStudentItemClickListener {
-                    override fun onItemClick(student: Student) {
-                        Log.d("TAG", "Clicked on ${student.name}")
-                    }
+                setClickListener { student ->
+                    StudentDetailsActivity.startActivity(this@AllStudentsActivity, student)
                 }
             }
         }
