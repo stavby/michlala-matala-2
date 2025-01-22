@@ -27,10 +27,10 @@ class AllStudentsActivity : AppCompatActivity() {
             insets
         }
 
-        val button: Button = findViewById<Button>(R.id.all_students_activity_new_student_button)
-
-        button.setOnClickListener {
-            CreateStudentActivity.startActivity(this)
+        findViewById<Button>(R.id.all_students_activity_new_student_button).apply {
+            setOnClickListener {
+                CreateStudentActivity.startActivity(this@AllStudentsActivity)
+            }
         }
     }
 
