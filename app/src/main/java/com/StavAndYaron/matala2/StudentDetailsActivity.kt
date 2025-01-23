@@ -3,21 +3,20 @@ package com.StavAndYaron.matala2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.StavAndYaron.matala2.model.Model
 import com.StavAndYaron.matala2.model.Student
-import org.w3c.dom.Text
 
 class StudentDetailsActivity : AppCompatActivity() {
     private var student: Student? = null
     private var index: Int? = null
+    private var size: Int? = null
 
     private fun initStudent() {
         val name = intent.getStringExtra("studentName")
@@ -53,6 +52,9 @@ class StudentDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.student_details_national_id).apply {
             text = student!!.nationalId
         }
+        findViewById<CheckBox>(R.id.student_details_is_checked).apply {
+            isChecked = student!!.isChecked
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +73,16 @@ class StudentDetailsActivity : AppCompatActivity() {
         initDetails()
     }
 
+    override fun onPause() {
+        super.onPause()
+        size = Model.instance.students.size
+    }
+
     override fun onResume() {
         super.onResume()
+        if (size != null && Model.instance.students.size != size) {
+            finish()
+        }
         student = Model.instance.students[index!!]
         initDetails()
     }

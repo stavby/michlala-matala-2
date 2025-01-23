@@ -8,6 +8,8 @@
     <string name="name_field">Name</string>
     <string name="email_field">Email</string>
     <string name="national_id_field">National ID</string>
+    <string name="is_checked_field">Checked</string>
+    <string name="edit_button">Edit</string>
     <string name="submit_button">Submit</string>
     <string name="cancel_button">Cancel</string>
     <string name="delete_button">Delete</string>
