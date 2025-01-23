@@ -2,6 +2,7 @@ package com.StavAndYaron.matala2
 
 import android.content.Context
 import android.content.Intent
+import android.icu.text.Edits
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -15,7 +16,7 @@ import com.StavAndYaron.matala2.model.Model
 import com.StavAndYaron.matala2.model.Student
 import org.w3c.dom.Text
 
-class StudentDetailsActivity : AppCompatActivity() {
+class EditStudentActivity : AppCompatActivity() {
     private var student: Student? = null
     private var index: Int? = null
 
@@ -29,36 +30,45 @@ class StudentDetailsActivity : AppCompatActivity() {
     }
 
     private fun initBackButton() {
-        val button: Button = findViewById(R.id.student_details_back_button)
-        button.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun initEditButton() {
-        findViewById<Button>(R.id.student_details_activity_edit_button).apply {
+        findViewById<Button>(R.id.edit_student_back_button).apply {
             setOnClickListener {
-                EditStudentActivity.startActivity(this@StudentDetailsActivity, student!!, index!!)
+                finish()
             }
         }
     }
 
-    private fun initDetails() {
-        findViewById<TextView>(R.id.student_details_name).apply {
-            text = student!!.name
+    private fun initCancelButton() {
+        findViewById<Button>(R.id.edit_student_activity_cancel_button).apply {
+            setOnClickListener {
+                finish()
+            }
         }
-        findViewById<TextView>(R.id.student_details_email).apply {
-            text = student!!.email
-        }
-        findViewById<TextView>(R.id.student_details_national_id).apply {
-            text = student!!.nationalId
+    }
+
+    private fun initSubmitButton() {
+        val button = findViewById<Button>(R.id.edit_student_activity_submit_button)
+
+        button.setOnClickListener {
+            val name = findViewById<TextView>(R.id.edit_student_name_field).text.toString()
+            val email = findViewById<TextView>(R.id.edit_student_email_field).text.toString()
+            val nationalId = findViewById<TextView>(R.id.edit_student_national_id_field).text.toString()
+
+            val isValid = name.isNotEmpty() && email.isNotEmpty() && nationalId.isNotEmpty()
+
+            if (isValid) {
+                Model.instance.students[intent.getIntExtra("studentIndex", 0)] =
+                    Student(name, email, nationalId, intent.getBooleanExtra("studentIsChecked", false))
+                finish()
+            } else {
+                Toast.makeText(this@EditStudentActivity, "All values are required", Toast.LENGTH_SHORT ).show()
+            }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_student_details)
+        setContentView(R.layout.activity_edit_student)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -67,19 +77,17 @@ class StudentDetailsActivity : AppCompatActivity() {
 
         initStudent()
         initBackButton()
-        initEditButton()
-        initDetails()
-    }
+        initCancelButton()
+        initSubmitButton()
 
-    override fun onResume() {
-        super.onResume()
-        student = Model.instance.students[index!!]
-        initDetails()
+        findViewById<TextView>(R.id.edit_student_name_field).text = student!!.name
+        findViewById<TextView>(R.id.edit_student_email_field).text = student!!.email
+        findViewById<TextView>(R.id.edit_student_national_id_field).text = student!!.nationalId
     }
 
     companion object {
         fun startActivity(context: Context, student: Student, index: Int) {
-            val intent = Intent(context, StudentDetailsActivity::class.java).apply {
+            val intent = Intent(context, EditStudentActivity::class.java).apply {
                 putExtra("studentName", student.name)
                 putExtra("studentEmail", student.email)
                 putExtra("studentNationalId", student.nationalId)

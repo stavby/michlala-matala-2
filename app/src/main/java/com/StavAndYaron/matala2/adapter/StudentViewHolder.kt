@@ -1,22 +1,20 @@
 package com.StavAndYaron.matala2.adapter
 
-import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.StavAndYaron.matala2.R
-import com.StavAndYaron.matala2.StudentDetailsActivity
 import com.StavAndYaron.matala2.model.Student
 
-class StudentViewHolder(itemView: View, private val onClickListener: (Student) -> Unit) :
+class StudentViewHolder(itemView: View, private val onClickListener: (Student, Int) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
     private var name: TextView? = null
     private var email: TextView? = null
     private var nationalId: TextView? = null
     private var isChecked: CheckBox? = null
     private var student: Student? = null
+    private var index: Int? = null
 
     init {
         name = itemView.findViewById(R.id.student_row_name)
@@ -31,7 +29,7 @@ class StudentViewHolder(itemView: View, private val onClickListener: (Student) -
         }
 
         itemView.setOnClickListener {
-            student?.let { onClickListener(it) }
+            student?.let { index?.let { it1 -> onClickListener(it, it1) } }
         }
     }
 
@@ -44,5 +42,6 @@ class StudentViewHolder(itemView: View, private val onClickListener: (Student) -
             isChecked = student.isChecked
             tag = index
         }
+        this.index = index
     }
 }

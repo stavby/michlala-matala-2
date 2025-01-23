@@ -43,8 +43,8 @@ class AllStudentsActivity : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = StudentsAdapter(students!!).apply {
-                setClickListener { student ->
-                    StudentDetailsActivity.startActivity(this@AllStudentsActivity, student)
+                setClickListener { student: Student, index: Int ->
+                    StudentDetailsActivity.startActivity(this@AllStudentsActivity, student, index)
                 }
             }
         }
