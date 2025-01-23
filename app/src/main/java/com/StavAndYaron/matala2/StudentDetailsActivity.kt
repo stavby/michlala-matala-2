@@ -3,6 +3,7 @@ package com.StavAndYaron.matala2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -82,9 +83,10 @@ class StudentDetailsActivity : AppCompatActivity() {
         super.onResume()
         if (size != null && Model.instance.students.size != size) {
             finish()
+        } else {
+            student = Model.instance.students[index!!]
+            initDetails()
         }
-        student = Model.instance.students[index!!]
-        initDetails()
     }
 
     companion object {

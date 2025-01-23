@@ -3,6 +3,7 @@ package com.StavAndYaron.matala2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -44,22 +45,21 @@ class EditStudentActivity : AppCompatActivity() {
     }
 
     private fun initSubmitButton() {
-        findViewById<Button>(R.id.edit_student_activity_submit_button).apply {
-            setOnClickListener {
-                val name = findViewById<TextView>(R.id.edit_student_name_field).text.toString()
-                val email = findViewById<TextView>(R.id.edit_student_email_field).text.toString()
-                val nationalId = findViewById<TextView>(R.id.edit_student_national_id_field).text.toString()
-                val isChecked = findViewById<CheckBox>(R.id.edit_student_is_checked_field).isChecked
+        val button: Button = findViewById<Button>(R.id.edit_student_activity_submit_button)
 
-                val isValid = name.isNotEmpty() && email.isNotEmpty() && nationalId.isNotEmpty()
+        button.setOnClickListener {
+            val name = findViewById<TextView>(R.id.edit_student_name_field).text.toString()
+            val email = findViewById<TextView>(R.id.edit_student_email_field).text.toString()
+            val nationalId = findViewById<TextView>(R.id.edit_student_national_id_field).text.toString()
+            val isChecked = findViewById<CheckBox>(R.id.edit_student_is_checked_field).isChecked
 
-                if (isValid) {
-                    Model.instance.students[intent.getIntExtra("studentIndex", 0)] =
-                        Student(name, email, nationalId, isChecked)
-                    finish()
-                } else {
-                    Toast.makeText(this@EditStudentActivity, "All values are required", Toast.LENGTH_SHORT ).show()
-                }
+            val isValid = name.isNotEmpty() && email.isNotEmpty() && nationalId.isNotEmpty()
+
+            if (isValid) {
+                Model.instance.students[index!!] = Student(name, email, nationalId, isChecked)
+                finish()
+            } else {
+                Toast.makeText(this@EditStudentActivity, "All values are required", Toast.LENGTH_SHORT ).show()
             }
         }
     }

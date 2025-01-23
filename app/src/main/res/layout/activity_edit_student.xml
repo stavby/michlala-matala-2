@@ -15,8 +15,8 @@
         android:ems="10"
         android:autofillHints="emailAddress"
         android:inputType="textEmailAddress"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edit_student_name_field_title"
-        app:layout_constraintStart_toEndOf="@+id/edit_student_name_field_title" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_student_email_field_title"
+        app:layout_constraintStart_toEndOf="@+id/edit_student_email_field_title" />
 
     <EditText
         android:id="@+id/edit_student_national_id_field"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toEndOf="@+id/edit_student_national_id_field_title" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/edit_student_name_field_title"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -91,18 +91,18 @@
         android:ems="10"
         android:autofillHints="@string/name_field"
         android:inputType="text"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-        app:layout_constraintStart_toEndOf="@+id/textView5" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_student_name_field_title"
+        app:layout_constraintStart_toEndOf="@+id/edit_student_name_field_title" />
 
     <TextView
-        android:id="@+id/edit_student_name_field_title"
+        android:id="@+id/edit_student_email_field_title"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/email_field"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_student_name_field_title" />
 
     <TextView
         android:id="@+id/edit_student_national_id_field_title"
@@ -112,7 +112,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/national_id_field"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_student_name_field_title" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_student_email_field_title" />
 
     <TextView
         android:id="@+id/edit_student_is_checked_field_title"
