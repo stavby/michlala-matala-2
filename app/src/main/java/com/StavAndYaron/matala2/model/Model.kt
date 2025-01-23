@@ -6,17 +6,4 @@ class Model private constructor() {
     companion object {
         val instance = Model()
     }
-
-    init {
-        for (i in 1..20) {
-            students.add(
-                Student(
-                    name = "Stav $i",
-                    email = "stav$i@gmail.com",
-                    nationalId = i.toString().padStart(8, '0'),
-                    isChecked = false
-                )
-            )
-        }
-    }
 }
