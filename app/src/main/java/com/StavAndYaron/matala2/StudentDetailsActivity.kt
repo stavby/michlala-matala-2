@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +15,19 @@ import com.StavAndYaron.matala2.model.Model
 import com.StavAndYaron.matala2.model.Student
 
 class StudentDetailsActivity : AppCompatActivity() {
+    private var student: Student? = null
+    private var index: Int? = null
+    private var size: Int? = null
+
+    private fun initStudent() {
+        val name = intent.getStringExtra("studentName")
+        val email = intent.getStringExtra("studentEmail")
+        val nationalId = intent.getStringExtra("studentNationalId")
+        val isChecked = intent.getBooleanExtra("studentIsChecked", false)
+        index = intent.getIntExtra("studentIndex", 0)
+        student = Student(name!!, email!!, nationalId!!, isChecked)
+    }
+
     private fun initBackButton() {
         val button: Button = findViewById(R.id.student_details_back_button)
         button.setOnClickListener {
@@ -25,8 +38,23 @@ class StudentDetailsActivity : AppCompatActivity() {
     private fun initEditButton() {
         findViewById<Button>(R.id.student_details_activity_edit_button).apply {
             setOnClickListener {
-                Log.d("todo", "start edit student activity")
+                EditStudentActivity.startActivity(this@StudentDetailsActivity, student!!, index!!)
             }
+        }
+    }
+
+    private fun initDetails() {
+        findViewById<TextView>(R.id.student_details_name).apply {
+            text = student!!.name
+        }
+        findViewById<TextView>(R.id.student_details_email).apply {
+            text = student!!.email
+        }
+        findViewById<TextView>(R.id.student_details_national_id).apply {
+            text = student!!.nationalId
+        }
+        findViewById<CheckBox>(R.id.student_details_is_checked).apply {
+            isChecked = student!!.isChecked
         }
     }
 
@@ -40,25 +68,35 @@ class StudentDetailsActivity : AppCompatActivity() {
             insets
         }
 
+        initStudent()
         initBackButton()
+        initEditButton()
+        initDetails()
+    }
 
-        // Find views
-        val nameTextView: TextView = findViewById(R.id.student_details_name)
-        val emailTextView: TextView = findViewById(R.id.student_details_email)
-        val nationalIdTextView: TextView = findViewById(R.id.student_details_national_id)
+    override fun onPause() {
+        super.onPause()
+        size = Model.instance.students.size
+    }
 
-        // Set the text views with student data
-        nameTextView.text = intent.getStringExtra("studentName")
-        emailTextView.text = intent.getStringExtra("studentEmail")
-        nationalIdTextView.text = intent.getStringExtra("studentNationalId")
+    override fun onResume() {
+        super.onResume()
+        if (size != null && Model.instance.students.size != size) {
+            finish()
+        } else {
+            student = Model.instance.students[index!!]
+            initDetails()
+        }
     }
 
     companion object {
-        fun startActivity(context: Context, student: Student) {
+        fun startActivity(context: Context, student: Student, index: Int) {
             val intent = Intent(context, StudentDetailsActivity::class.java).apply {
                 putExtra("studentName", student.name)
                 putExtra("studentEmail", student.email)
                 putExtra("studentNationalId", student.nationalId)
+                putExtra("studentIsChecked", student.isChecked)
+                putExtra("studentIndex", index)
             }
             context.startActivity(intent)
         }

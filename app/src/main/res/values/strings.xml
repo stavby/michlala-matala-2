@@ -3,5 +3,14 @@
     <string name="main_activity_greeting">Hello, world!</string>
     <string name="create_new_student_button_text">Create a new student</string>
     <string name="create_student_title">Enter new student details</string>
+    <string name="edit_student_title">Edit student details</string>
     <string name="student_details_title">View student details</string>
+    <string name="name_field">Name</string>
+    <string name="email_field">Email</string>
+    <string name="national_id_field">National ID</string>
+    <string name="is_checked_field">Checked</string>
+    <string name="edit_button">Edit</string>
+    <string name="submit_button">Submit</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="delete_button">Delete</string>
 </resources>

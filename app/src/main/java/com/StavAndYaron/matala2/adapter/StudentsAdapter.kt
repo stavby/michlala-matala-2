@@ -9,7 +9,7 @@ import com.StavAndYaron.matala2.model.Student
 class StudentsAdapter(private val students: MutableList<Student>) :
     RecyclerView.Adapter<StudentViewHolder>() {
 
-    private var onClickListener: ((Student) -> Unit)? = null
+    private var onClickListener: ((Student, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         return StudentViewHolder(
@@ -18,7 +18,7 @@ class StudentsAdapter(private val students: MutableList<Student>) :
                 parent,
                 false
             ),
-            onClickListener ?: { }
+            onClickListener ?: { _: Student, _: Int ->  }
         )
     }
 
@@ -26,7 +26,7 @@ class StudentsAdapter(private val students: MutableList<Student>) :
         val student = students[index]
         holder.bind(student, index)
         holder.itemView.setOnClickListener {
-            onClickListener?.invoke(student)
+            onClickListener?.invoke(student, index)
         }
     }
     
@@ -34,7 +34,7 @@ class StudentsAdapter(private val students: MutableList<Student>) :
         return students.size
     }
 
-    fun setClickListener(listener: (Student) -> Unit) {
+    fun setClickListener(listener: (Student, Int) -> Unit) {
         this.onClickListener = listener
     }
 
